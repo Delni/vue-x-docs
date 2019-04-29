@@ -1,0 +1,15 @@
+{
+  "name": "vue(x)docs",
+  "version": "0.0.1",
+  "description": "Generate doc in vue style !",
+  "main": "tags.js",
+  "author": "delni <nicolas@outlook.fr>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "jsdoc -r -c conf.json -P package.json -d ./out demo"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
+  }
+}
