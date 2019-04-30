@@ -310,28 +310,76 @@ function attachModuleSymbols(doclets, modules) {
     });
 }
 
+function buildSubNav(obj, itemsSeen) {
+    var longname = obj.longname;
+    var members = find({
+        kind: 'member',
+        memberof: longname
+    });
+    var methods = find({
+        kind: 'function',
+        memberof: longname
+    });
+    var events = find({
+        kind: 'event',
+        memberof: longname
+    });
+    var typedef = find({
+        kind: 'typedef',
+        memberof: longname
+    });
+    var html = '<div class="hidden" id="' + obj.longname.replace(/"/g, '_') + '_sub">';
+    html += buildSubNavMembers(members, 'Members', itemsSeen);
+    html += buildSubNavMembers(methods, 'Methods', itemsSeen);
+    html += buildSubNavMembers(events, 'Events', itemsSeen);
+    html += buildSubNavMembers(typedef, 'Typedef', itemsSeen);
+    html += '</div>';
+
+    return html;
+}
+
+function buildSubNavMembers(list, type, itemsSeen) {
+    var html = '';
+
+    if (list.length) {
+        html += '<div class="member-type">' + type + '</div>';
+        html += '<ul class="inner">';
+        list.forEach(function(item) {
+            html += '<li>' + linkto(item.longname, item.name) + '</li>';
+			itemsSeen[item.longname] = true;
+        });
+        html += '</ul>';
+    }
+
+    return html;
+}
+
 function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
     var nav = '';
 
     if (items.length) {
         var itemsNav = '';
+		const makeHtml = env.conf.templates.useCollapsibles ? makeCollapsibleItemHtmlInNav : makeItemHtmlInNav;
 
-        items.forEach(function(item) {
-            var displayName;
+		items.forEach(function(item) {
+            var linkHtml;
 
             if ( !hasOwnProp.call(item, 'longname') ) {
-                itemsNav += '<li>' + linktoFn('', item.name) + '</li>';
+                itemsNav += '<li>' + linktoFn('', item.name) + buildSubNav(item, itemsSeen) + '</li>';
             }
             else if ( !hasOwnProp.call(itemsSeen, item.longname) ) {
-                if (env.conf.templates.default.useLongnameInNav) {
+                var displayName;
+                if (env.conf.templates.default.useLongnameInNav || item.kind === 'namespace') {
                     displayName = item.longname;
                 } else {
                     displayName = item.name;
                 }
-                itemsNav += '<li>' + linktoFn(item.longname, displayName.replace(/\b(module|event):/g, '')) + '</li>';
 
-                itemsSeen[item.longname] = true;
+                linkHtml = linktoFn(item.longname, displayName.replace(/\b(module|event):/g, ''));
+                itemsNav += makeHtml(item, linkHtml, itemsSeen);
             }
+
+            itemsSeen[item.longname] = true;
         });
 
         if (itemsNav !== '') {
@@ -348,6 +396,23 @@ function linktoTutorial(longName, name) {
 
 function linktoExternal(longName, name) {
     return linkto(longName, name.replace(/(^"|"$)/g, ''));
+}
+
+function makeItemHtmlInNav(item, linkHtml, itemsSeen) {
+    return '<li>'
+        + linkHtml
+        + buildSubNav(item, itemsSeen)
+        + '</li>';
+}
+
+function makeCollapsibleItemHtmlInNav(item, linkHtml, itemsSeen) {
+    return '<li>'
+        + '<button type="button" class="toggle-subnav">'
+        + '  <span class="toggler">+</span>'
+        + '</button>'
+		+ linkHtml
+        + buildSubNav(item, itemsSeen)
+        + '</li>';
 }
 
 /**
@@ -370,9 +435,9 @@ function buildNav(members) {
     var seen = {};
     var seenTutorials = {};
 
-    nav += buildMemberNav(members.components, 'Components', {}, linkto);
-    nav += buildMemberNav(members.stores, 'Stores', {}, linkto);
-    nav += buildMemberNav(members.modules, 'Modules', {}, linkto);
+    nav += buildMemberNav(members.components, 'Components', seen, linkto);
+    nav += buildMemberNav(members.stores, 'Stores', seen, linkto);
+    nav += buildMemberNav(members.modules, 'Modules', seen, linkto);
     nav += buildMemberNav(members.externals, 'Externals', seen, linktoExternal);
     nav += buildMemberNav(members.classes, 'Classes', seen, linkto);
     nav += buildMemberNav(members.events, 'Events', seen, linkto);
@@ -383,15 +448,25 @@ function buildNav(members) {
 
     if (members.globals.length) {
         globalNav = '';
+		let useGlobalTitleLink = true
 
-        members.globals.forEach(function(g) {
-            if ( g.kind !== 'typedef' && !hasOwnProp.call(seen, g.longname) ) {
-                globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
-            }
-            seen[g.longname] = true;
-        });
+		members.globals.forEach(function(g) {
+			if ( !hasOwnProp.call(seen, g.longname) ) {
+				// tuidoc
+				//  - Add global-typedef in hidden to search api.
+				//  - Default template did not add this.
+				if (g.kind === 'typedef') {
+					globalNav += '<li class="hidden">' + linkto(g.longname, g.name) + '</li>'
+				} else {
+					globalNav += '<li>' + linkto(g.longname, g.name) + '</li>'
+					useGlobalTitleLink = false
+				}
+			}
 
-        if (!globalNav) {
+			seen[g.longname] = true
+		})
+
+        if (useGlobalTitleLink) {
             // turn the heading into a link so you can actually get to the global page
             nav += '<h3>' + linkto('global', 'Global') + '</h3>';
         }

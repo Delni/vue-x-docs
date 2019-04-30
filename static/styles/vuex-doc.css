@@ -59,6 +59,65 @@ body {
   flex: 8
 }
 
+#search {
+	height: 30px;
+	line-height: 30px;
+	box-sizing: border-box;
+	padding: 0 15px 0 30px;
+	border: 1px solid #e3e3e3;
+	color: #2c3e50;
+	outline: none;
+	border-radius: 15px;
+	margin-right: 10px;
+	transition: border-color 0.2s ease;
+	background: #fff url("../img/search.png") 8px 5px no-repeat;
+	background-size: auto;
+	background-size: 20px;
+	vertical-align: middle !important;
+}
+
+#search:focus {
+	border-color: #42b983;
+}
+
+#search-container {
+	position: relative
+}
+
+#search-container ul {
+	position: absolute;
+	border: 1px solid #aaa;
+	background: #fff;
+	padding: 1em;
+	list-style: none;
+	width: 35vw;
+	right: 10px;
+	border-radius: 0.25em;
+	top: 1.25em;
+}
+#search-container ul.empty {
+	visibility: hidden;
+}
+#search-container ul strong {
+	color: #42b983;
+}
+#search-container ul li {
+	display: flex;
+	flex-flow: row;
+	justify-content:space-between;
+}
+#search-container ul .highlight, #search-container ul li:hover  {
+	background: rgba(200,200,200,0.25);
+	cursor: pointer
+}
+
+#search-container ul li .group {
+	font-style: italic;
+	color: #aaa;
+	padding-right: 0.25em;
+	font-size: 90%;
+}
+
 a, a:visited, a:active {
   color: inherit;
   text-decoration: none;
@@ -111,6 +170,42 @@ nav h3 {
 
 nav li {
     margin-top: 6px;
+}
+
+nav .hidden {
+	max-height: 0;
+	overflow: hidden;
+	transition: all 0.5s ease;
+	padding-left: 1em;
+	font-size: 0.85em;
+	font-family: 'Source Sans Pro Light', Arial, Helvetica, sans-serif;
+	font-weight: 200;
+	color: #7f8c8d !important
+}
+
+nav .hidden ul a, nav .hidden ul a:visited, nav .hidden ul a:active {
+	color: #7f8c8d !important;
+	line-height: inherit;
+}
+
+nav .hidden.show {
+	max-height: 300vh;
+}
+
+nav .toggle-subnav {
+	border: none;
+	border-radius: 1em;
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+	margin-right: 1em;
+}
+
+nav .toggle-subnav:hover {
+	background: #42b983;
+	font-weight: bold;
+	color: white;
+	cursor: pointer
 }
 
 #main {
@@ -197,7 +292,8 @@ h4.name {
   background: rgba(100,100,100,0.1);
   border-radius: 2px;
   display: flex;
-  flex-flow: row nowrap;
+  font-weight: 500;
+  flex-flow: row wrap;
   align-self: center;
   padding: 0 0.5em 0 0;
 }
@@ -364,7 +460,8 @@ code, td.default {
 }
 
 .props td.type, .props td.attributes, .params td.type, .params td.attributes {
-  color: #aaa
+  color: #aaa;
+  white-space: nowrap;
 }
 
 td *:not(code) {
@@ -375,7 +472,7 @@ th {
   text-align: left;
 }
 
-.subsection-title {
+.subsection-title:not(h5) {
   font-size: 30px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.25);
   margin-bottom: 1em;
