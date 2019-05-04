@@ -1,6 +1,6 @@
 {
   "name": "vue-x-docs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate doc in vue style !",
   "main": "tags.js",
   "author": "delni <nicolas@outlook.fr>",
