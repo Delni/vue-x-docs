@@ -9,6 +9,8 @@ This project is not an official fork, but is widely inspired by [TUI JSDoc Templ
 - [Template](#template)
 	- [Config](#config)
 
+![vue(x)docs Preview](https://github.com/Delni/vue-x-docs/raw/master/demo/vue_x_docs.png)
+
 ## Install
 > _will be publish on npm when ready_
 
@@ -34,11 +36,31 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 
 :warning: Some tags will only be available with the template, as it redefined some of JSDoc core functionnality. In those case, a _fallback_ tag is defined
 
-| Name         | Fallback  | Description
-| ----         | :------:  | -----------
-| `@store`     | `@module` | Define a `vuex` store
-| `@component` | `@module` | Define a `vue` component
+---
+* `@store`  
+	Define a `vuex` store.  
+	Compatibility with vanilla JSDoc: fallback as `@module`.
 
+	* `@namespaced` allow to precise that this vuex module is namespaced
+	* `@actions`, `@mutations`, `@getters`, fallback as `@method`. `@actions` are automaticaly tagged as `async`
+
+	See [warehouse-module.js](https://github.com/Delni/vue-x-docs/blob/master/demo/warehouse-module.js) for usage in context
+---
+* `@component`  
+	Define a `vue` component.  
+	Compatibility with vanilla JSDoc: fallback as `@module`.
+	data from this component should be tagged `@member`
+
+	* `@computed`: fallback as `@member`. Tag computed data
+	* `@vprop`: fallback as `@member`. Tag props from actual data
+	* `@route` : show the routes matched by this component. Not supported by default JSDoc template
+
+	See [cart.vue](https://github.com/Delni/vue-x-docs/blob/master/demo/cart.vue) for usage in context
+---
+* `@model`
+	Synonyme of `@module`, use to describe file that make the actual call to API, if you need.  
+	See [goods.js](https://github.com/Delni/vue-x-docs/blob/master/demo/goods.js) for usage in context
+---
 ## Template
 
 :construction: to complete
@@ -63,9 +85,17 @@ You can customize some of the doc behavior
 }
 ```
 
+#### Separates data, props and computed by a title
+*Default: `true`*
+```JSON
+"templates": {
+    "separateMembers": true
+}
+```
+
 #### Use versioning tree output
 *Default: `false`*  
-```
+```JSON
 "templates": {
     "useVersionning": false
 }
