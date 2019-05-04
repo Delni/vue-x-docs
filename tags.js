@@ -1,5 +1,5 @@
 const stores = {
-  store: {
+	store: {
 		mustHaveValue: true,
 		canHaveType: false,
 		canHaveName: true,
@@ -9,17 +9,61 @@ const stores = {
 			doclet.vuexModule = tag.value.name
 			doclet.longname = `store:${tag.value.name}`
 			doclet.scope = 'static'
-      doclet.is = 'store'
+	  		doclet.is = 'store'
 			doclet.kind = 'module'
 		}
 	},
-  namespaced: {
+	mutation: {
+		canHaveName: true,
+		onTagged(doclet, tag) {
+			// console.log(doclet, tag)
+	  		doclet.is = 'mutation'
+			doclet.scope = 'static'
+			doclet.name = tag.value.name
+			doclet.kind = 'function'
+		}
+	},
+	getter: {
+		canHaveName: true,
+		onTagged(doclet, tag) {
+	  		doclet.is = 'getter'
+			doclet.scope = 'static'
+			doclet.name = tag.value.name
+			doclet.kind = 'function'
+		}
+	},
+	action: {
+		canHaveName: true,
+		onTagged(doclet, tag) {
+	  		doclet.is = 'action'
+			doclet.name = tag.value.name
+			doclet.scope = 'static'
+			doclet.kind = 'function'
+			doclet.async = true
+		}
+	},
+	namespaced: {
 		canHaveName: false,
 		canHaveType: false,
 		onTagged(doclet) {
 			if(doclet.vuexModule) {
 				doclet.namespaced = true
 			}
+		}
+	}
+}
+
+const models = {
+	model: {
+		mustHaveValue: true,
+		canHaveType: false,
+		canHaveName: true,
+		isNamespace: true,
+		onTagged(doclet, tag) {
+			doclet.name = tag.value.name
+			doclet.longname = `model:${tag.value.name}`
+	  		doclet.is = 'model'
+			doclet.kind = 'module'
 		}
 	}
 }
@@ -35,15 +79,46 @@ const components = {
 			doclet.vuexModule = tag.value.name
 			doclet.longname = `component:${tag.value.name}`
 			doclet.scope = 'static'
-      doclet.is = 'component'
+      		doclet.is = 'component'
 			doclet.kind = 'module'
     },
   },
-  computed: {
-    onTagged(doclet, tag) {
-      doclet.computed = true
-    },
-  }
+  route: {
+	  mustHaveValue: true,
+	  onTagged(doclet, tag) {
+		  if(doclet.is === 'component') {
+			  if(!doclet.routes) { doclet.routes = []}
+			  doclet.routes.push(tag.value)
+		  }
+	  }
+  },
+	computed: {
+		canHaveName: true,
+		canHaveType: true,
+		onTagged(doclet, tag) {
+			doclet.computed = true
+			if(tag.value) {
+				Object.keys(tag.value).forEach(key => {
+					doclet[key] = tag.value[key]
+				})
+			}
+			doclet.kind= 'member'
+		},
+	},
+	vprop: {
+		canHaveName: true,
+		canHaveType: true,
+		onTagged(doclet, tag) {
+			doclet.isProp = true
+			doclet.readonly = true
+			if(tag.value) {
+				Object.keys(tag.value).forEach(key => {
+					doclet[key] = tag.value[key]
+				})
+			}
+			doclet.kind= 'member'
+		}
+	}
 }
 
 exports.defineTags = function(dictionary){
@@ -52,6 +127,10 @@ exports.defineTags = function(dictionary){
     dictionary.defineTag(key, stores[key])
   })
 
+  /** All store related tags **/
+  Object.keys(models).forEach(key => {
+    dictionary.defineTag(key, models[key])
+  })
 
   /** All component related tags **/
   Object.keys(components).forEach(key => {
@@ -61,8 +140,8 @@ exports.defineTags = function(dictionary){
 
 exports.handlers =  {
     newDoclet(e) {
-      // if (e.doclet.namespaced) {
-			// 	e.doclet.description += 'is namespace'
-			// }
+		if (e.doclet.is === 'action') {
+			// console.log(e.doclet)
+		}
     },
-  }
+}

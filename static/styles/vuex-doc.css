@@ -299,7 +299,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
   margin: 0;
 }
 
@@ -310,6 +311,11 @@ h3,
   color: #42b983;
 }
 
+h4.data-title {
+	color: #4583ae;
+    border-bottom: solid 1px #bbb;
+}
+
 h4.name {
   background: rgba(100, 100, 100, 0.1);
   border-radius: 2px;
@@ -317,6 +323,7 @@ h4.name {
   font-weight: 500;
   flex-flow: row wrap;
   align-self: center;
+  margin-top: 1em;
   padding: 0 0.5em 0 0;
 }
 h4.name .source {
@@ -539,6 +546,15 @@ h4.name,
 }
 .tag-todo {
   color: #4583ae;
+}
+
+.tag-namespaced {
+	padding: 0.1em;
+	font-size: 80%;
+	border-radius: 5px;
+	border: 1px solid #1f2530;
+	background-color: #4583ae;
+	color: white
 }
 /*
 h1

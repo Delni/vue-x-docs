@@ -19,7 +19,7 @@ var files = {};
 var ids = {};
 
 // each container gets its own html file
-var containers = ['store', 'component', 'class', 'module', 'external', 'namespace', 'mixin', 'interface'];
+var containers = ['store', 'component', 'model', 'class', 'module', 'external', 'namespace', 'mixin', 'interface'];
 
 var tutorials;
 
@@ -614,6 +614,7 @@ exports.getMembers = function(data) {
     var members = {
         stores: find( data, {is: 'store'} ),
         components: find( data, {is: 'component'} ),
+        models: find( data, {is: 'model'} ),
         classes: find( data, {kind: 'class'} ),
         externals: find( data, {kind: 'external'} ),
         events: find( data, {kind: 'event'} ),
@@ -622,7 +623,7 @@ exports.getMembers = function(data) {
             memberof: { isUndefined: true }
         }),
         mixins: find( data, {kind: 'mixin'} ),
-        modules: find( data, {kind: 'module', is: {'!is': 'store', '!is': 'component'}} ),
+        modules: find( data, {kind: 'module', is: { isUndefined: true } } ),
         namespaces: find( data, {kind: 'namespace'} ),
         interfaces: find( data, {kind: 'interface'} ),
     };
@@ -692,6 +693,14 @@ exports.getAttribs = function(d) {
 
     if (d.computed === true) {
       attribs.push('computed')
+    }
+
+    if (d.isProp === true) {
+      attribs.push('prop')
+    }
+
+    if (d.namespaced === true) {
+      attribs.push('namespaced')
     }
 
     if (d.nullable === true) {

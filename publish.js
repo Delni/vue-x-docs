@@ -22,6 +22,7 @@ let outdir = path.normalize(env.opts.destination);
 
 
 env.conf.templates = {
+	separateMembers: true,
     useCollapsibles: true,
 	...env.conf.templates
 }
@@ -318,13 +319,41 @@ function attachModuleSymbols(doclets, modules) {
 
 function buildSubNav(obj, itemsSeen) {
     let longname = obj.longname;
+	let props = find({
+		kind: 'member',
+		memberof: longname,
+		isProp: true
+	})
+	let computeds = find({
+		kind: 'member',
+		memberof: longname,
+		computed: true
+	})
     let members = find({
         kind: 'member',
-        memberof: longname
+        memberof: longname,
+		isProp: {isUndefined: true},
+		computed: {isUndefined: true}
     });
     let methods = find({
         kind: 'function',
-        memberof: longname
+        memberof: longname,
+		is:{isUndefined: true}
+    });
+    let actions = find({
+        kind: 'function',
+        memberof: longname,
+		is: 'action'
+    });
+    let mutations = find({
+        kind: 'function',
+        memberof: longname,
+		is: 'mutation'
+    });
+    let getters = find({
+        kind: 'function',
+        memberof: longname,
+		is: 'getter'
     });
     let events = find({
         kind: 'event',
@@ -335,7 +364,12 @@ function buildSubNav(obj, itemsSeen) {
         memberof: longname
     });
     let html = '<div class="hidden" id="' + obj.longname.replace(/"/g, '_') + '_sub">';
+    html += buildSubNavMembers(props, 'Props', itemsSeen);
     html += buildSubNavMembers(members, 'Members', itemsSeen);
+    html += buildSubNavMembers(computeds, 'Computed members', itemsSeen);
+	html += buildSubNavMembers(getters, 'Getters', itemsSeen);
+	html += buildSubNavMembers(mutations, 'Mutations', itemsSeen);
+    html += buildSubNavMembers(actions, 'Actions', itemsSeen);
     html += buildSubNavMembers(methods, 'Methods', itemsSeen);
     html += buildSubNavMembers(events, 'Events', itemsSeen);
     html += buildSubNavMembers(typedef, 'Typedef', itemsSeen);
@@ -399,7 +433,6 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
 function buildGlobalNav (items, itemHeading, itemsSeen, linktoFn) {
 	let nav = '';
 	let itemsNav = '';
-	let useGlobalTitleLink = true
 
 	let html = '';
 
@@ -448,18 +481,15 @@ function buildGlobalNav (items, itemHeading, itemsSeen, linktoFn) {
 				}
 
 				itemsSeen[item.longname] = true;
-				useGlobalTitleLink = false
 			}
 		})
 	}
 
-    if (useGlobalTitleLink) {
-        // turn the heading into a link so you can actually get to the global page
-        nav += '<h3>' + linkto('global', 'Global') + '</h3>';
-    }
-    else {
-        nav += '<h3>'+ itemHeading+ '</h3><ul>' + itemsNav + '</ul>';
-    }
+	if(itemsNav !== '') {
+		// turn the heading into a link so you can actually get to the global page
+		nav += '<h3>' + linkto('global', itemHeading) + '</h3><ul>' + itemsNav + '</ul>';
+	}
+
 	return nav
 }
 
@@ -518,6 +548,7 @@ function buildNav(members) {
     nav += buildMemberNav(members.mixins, 'Mixins', seen, linkto);
     nav += buildMemberNav(members.tutorials, 'Tutorials', seenTutorials, linktoTutorial);
     nav += buildMemberNav(members.interfaces, 'Interfaces', seen, linkto);
+	nav += buildMemberNav(members.models, 'Models', seen, linkto);
 	nav += buildGlobalNav(members.globals, 'Global', seen, linkto);
 
     return nav;
@@ -529,7 +560,7 @@ function buildNav(members) {
     @param {Tutorial} tutorials
  */
 exports.publish = function(taffyData, opts, tutorials) {
-    let components, stores;
+    let components, stores, models;
     let classes;
     let conf;
     let externals;
@@ -755,11 +786,12 @@ exports.publish = function(taffyData, opts, tutorials) {
                 readme: opts.readme,
                 longname: (opts.mainpagetitle) ? opts.mainpagetitle : 'Main Page'
             }]
-        ).concat(files), indexUrl);
+        )/*.concat(files)*/, indexUrl);
 
     // set up the lists that we'll use to generate pages
     stores =     taffy(members.stores);
     components = taffy(members.components);
+    models =     taffy(members.models);
     classes =    taffy(members.classes);
     modules =    taffy(members.modules);
     namespaces = taffy(members.namespaces);
@@ -774,6 +806,7 @@ exports.publish = function(taffyData, opts, tutorials) {
         let myMixins = helper.find(mixins, {longname: longname});
         let myModules = helper.find(modules, {longname: longname});
         let myStores = helper.find(stores, {longname: longname});
+        let myModels = helper.find(models, {longname: longname});
         let myComponents = helper.find(components, {longname: longname});
         let myNamespaces = helper.find(namespaces, {longname: longname});
 
@@ -807,6 +840,10 @@ exports.publish = function(taffyData, opts, tutorials) {
 
         if (myInterfaces.length) {
             generate('Interface: ' + myInterfaces[0].name, myInterfaces, helper.longnameToUrl[longname]);
+        }
+
+        if (myModels.length) {
+            generate('Model: ' + myModels[0].name, myModels, helper.longnameToUrl[longname]);
         }
     });
 

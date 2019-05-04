@@ -1,14 +1,18 @@
 {
-  "tags": {
+	"tags": {
         "allowUnknownTags": true,
         "dictionaries": ["jsdoc","closure"]
     },
-  "plugins": ["tags"],
-  "opts": {
-    "template": "."
-  },
-  "source": {
+	"plugins": [
+		"plugins/markdown",
+		"node_modules/jsdoc-vue",
+		"tags"
+	],
+	"opts": {
+		"template": "."
+	},
+  	"source": {
 		"includePattern": "\\.(vue|js)$",
-		"exc'alude": ["src/assets/"]
+		"exclude": ["src/assets/"]
 	}
 }

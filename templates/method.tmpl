@@ -64,6 +64,13 @@ var self = this;
 <?js }); ?></ul>
 <?js } ?>
 
+<?js if (data.routes && routes.length) { ?>
+<h5>Match routes:</h5>
+<ul class="fire-list"><?js routes.forEach(function(f) { ?>
+    <li><?js= self.linkto(f) ?></li>
+<?js }); ?></ul>
+<?js } ?>
+
 <?js if (data.fires && fires.length) { ?>
 <h5>Fires:</h5>
 <ul class="fire-list"><?js fires.forEach(function(f) { ?>

@@ -1,5 +1,6 @@
 <?js
     var self = this;
+	var separateMembers = env.conf.templates.separateMembers
     var isGlobalPage;
 
     docs.forEach(function(doc, i) {
@@ -146,17 +147,78 @@
         if (members && members.length && members.forEach) {
     ?>
         <h3 class="subsection-title">Members</h3>
+		<?js if(separateMembers && doc.is === 'component') { ?>
 
-        <?js members.forEach(function(p) { ?>
-            <?js= self.partial('members.tmpl', p) ?>
+			<?js if(members.some(m => m.isProp)) { ?>
+				<h4 class="data-title">Props</h4>
+				<?js members.filter(m => m.isProp).forEach(p => { ?>
+					<?js= self.partial('members.tmpl', p) ?>
+				<?js }) ?>
+				<h4 class="data-title">Data</h4>
+				<?js members.filter(m => !m.isProp && !m.computed).forEach(p => { ?>
+					<?js= self.partial('members.tmpl', p) ?>
+				<?js }) ?>
+				<h4 class="data-title">Computed</h4>
+				<?js members.filter(m => m.computed).forEach(p => { ?>
+					<?js= self.partial('members.tmpl', p) ?>
+				<?js }) ?>
+			<?js } ?>
+
+		<?js } else { ?>
+
+			<?js members.sort((a,b) => {
+				if(a.isProp && !b.isProp) {
+					return -1
+				} else if (a.computed && !b.computed) {
+					return 1
+				} else {
+					return 0
+				}
+			}).forEach(function(p) { ?>
+				<?js= self.partial('members.tmpl', p) ?>
+				<?js }); ?>
+
+		<?js } ?>
+    <?js } ?>
+
+    <?js
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: {isUndefined: true}});
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <h3 class="subsection-title">Methods</h3>
+
+        <?js methods.forEach(function(m) { ?>
+            <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?>
     <?js } ?>
 
     <?js
-        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: 'getter'});
         if (methods && methods.length && methods.forEach) {
     ?>
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Getters</h3>
+
+        <?js methods.forEach(function(m) { ?>
+            <?js= self.partial('method.tmpl', m) ?>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: 'mutation'});
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <h3 class="subsection-title">Mutations</h3>
+
+        <?js methods.forEach(function(m) { ?>
+            <?js= self.partial('method.tmpl', m) ?>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: 'action'});
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <h3 class="subsection-title">Actions</h3>
 
         <?js methods.forEach(function(m) { ?>
             <?js= self.partial('method.tmpl', m) ?>
