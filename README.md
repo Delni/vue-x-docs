@@ -44,7 +44,7 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 	* `@namespaced` allow to precise that this vuex module is namespaced
 	* `@actions`, `@mutations`, `@getters`, fallback as `@method`. `@actions` are automaticaly tagged as `async`
 
-	See [warehouse-module.js](https://github.com/Delni/vue-x-docs/blob/master/demo/warehouse-module.js) for usage in context
+	See [warehouse-module.js](https://github.com/Delni/vue-x-docs/blob/master/demo/src/warehouse-module.js) for usage in context
 ---
 * `@component`  
 	Define a `vue` component.  
@@ -55,11 +55,11 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 	* `@vprop`: fallback as `@member`. Tag props from actual data
 	* `@route` : show the routes matched by this component. Not supported by default JSDoc template
 
-	See [cart.vue](https://github.com/Delni/vue-x-docs/blob/master/demo/cart.vue) for usage in context
+	See [cart.vue](https://github.com/Delni/vue-x-docs/blob/master/demo/src/cart.vue) for usage in context
 ---
 * `@model`
 	Synonyme of `@module`, use to describe file that make the actual call to API, if you need.  
-	See [goods.js](https://github.com/Delni/vue-x-docs/blob/master/demo/goods.js) for usage in context
+	See [goods.js](https://github.com/Delni/vue-x-docs/blob/master/demo/src/goods.js) for usage in context
 ---
 ## Template
 
