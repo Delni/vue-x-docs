@@ -1,10 +1,18 @@
 {
-  "name": "vue(x)docs",
+  "name": "vue-x-docs",
   "version": "1.0.0",
   "description": "Generate doc in vue style !",
   "main": "tags.js",
   "author": "delni <nicolas@outlook.fr>",
   "license": "MIT",
+  "keywords": [
+    "jsdoc",
+    "jsdoc3",
+    "jsdoc-template",
+    "template",
+    "vue",
+	"vuex"
+  ],
   "scripts": {
     "dev": "jsdoc -r -c conf.json -P package.json -R README.md -d ./out demo"
   },
