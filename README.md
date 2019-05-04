@@ -28,7 +28,6 @@ yarn add -D vue-x-docs
 ```
 
 ## Tags
-:construction: WIP
 
 #### Usage
 ([*jsdoc page - configuration*](http://usejsdoc.org/about-configuring-jsdoc.html#incorporating-command-line-options-into-the-configuration-file))
@@ -75,8 +74,6 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 	See [goods.js](https://github.com/Delni/vue-x-docs/blob/master/demo/src/goods.js) for usage in context
 ---
 ## Template
-
-:construction: to complete
 
 ### Config
 ([*jsdoc page - configuration*](http://usejsdoc.org/about-configuring-jsdoc.html#incorporating-command-line-options-into-the-configuration-file))
