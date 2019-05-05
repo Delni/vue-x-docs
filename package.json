@@ -14,7 +14,7 @@
 	"vuex"
   ],
   "scripts": {
-    "dev": "jsdoc -r -c conf.json -P package.json -R README.md -d ./out demo"
+    "dev": "jsdoc -r -c conf.json -P package.json -R README.md -d ./docs demo"
   },
   "dependencies": {},
   "devDependencies": {

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VueDoc | Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link
+			id="favicon"
+			rel="shortcut icon"
+			type="image/png"
+			href="img/favicon.png"/>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link id="theme" type="text/css" rel="stylesheet" href="styles/vuex-doc.css">
+    
+    <script>
+      function turnGrey(){
+
+      }
+    </script>
+</head>
+
+<body>
+<header id="header">
+    <div class="logo">
+        
+            <img src="img/vuejs.png" style="width: 40px; height: 40px">
+        
+        <span><a href="index.html">vue-x-docs</a></span>
+    </div>
+    
+      <span class="version">1.0.1</span>
+    
+    <span style="flex: 1"></span>
+	<div class="search-container" id="search-container">
+        <input type="text" id="search">
+        <ul class="empty"></ul>
+    </div>
+</header>
+<div id="vue-view">
+  <nav id="nav">
+    <br><h3>Components</h3><ul><li><button type="button" class="toggle-subnav">  <span class="toggler">+</span></button><a href="component-Cart.html">Cart</a><div class="hidden" id="component:Cart_sub"><div class="member-type">Props</div><ul class="inner"><li><a href="component-Cart.html#~theme">theme</a></li></ul><div class="member-type">Members</div><ul class="inner"><li><a href="component-Cart.html#~default">default</a></li></ul><div class="member-type">Computed members</div><ul class="inner"><li><a href="component-Cart.html#~isReadyForCheckout">isReadyForCheckout</a></li><li><a href="component-Cart.html#~items">items</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="component-Cart.html#~decrementItem">decrementItem</a></li><li><a href="component-Cart.html#~goToCheckOut">goToCheckOut</a></li><li><a href="component-Cart.html#~incrementItem">incrementItem</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="component-Cart.html#~event:checkout">checkout</a></li></ul></div></li></ul><h3>Stores</h3><ul><li><button type="button" class="toggle-subnav">  <span class="toggler">+</span></button><a href="store-Warehouse.html">Warehouse</a><div class="hidden" id="store:Warehouse_sub"><div class="member-type">Members</div><ul class="inner"><li><a href="store-Warehouse.html#~items">items</a></li></ul><div class="member-type">Getters</div><ul class="inner"><li><a href="store-Warehouse.html#.items">items</a></li></ul><div class="member-type">Mutations</div><ul class="inner"><li><a href="store-Warehouse.html#.ADD_TO_CART">ADD_TO_CART</a></li></ul><div class="member-type">Actions</div><ul class="inner"><li><a href="store-Warehouse.html#.getAllGood">getAllGood</a></li><li><a href="store-Warehouse.html#.getThatGood">getThatGood</a></li></ul><div class="member-type">Methods</div><ul class="inner"><li><a href="store-Warehouse.html#.extractComments">extractComments</a></li></ul></div></li></ul><h3>Models</h3><ul><li><button type="button" class="toggle-subnav">  <span class="toggler">+</span></button><a href="model-Goods.html">Goods</a><div class="hidden" id="model:Goods_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="model-Goods.html#.getGoods">getGoods</a></li><li><a href="model-Goods.html#.getGoodsById">getGoodsById</a></li><li><a href="model-Goods.html#.getGoodsByName">getGoodsByName</a></li></ul></div></li><li><button type="button" class="toggle-subnav">  <span class="toggler">+</span></button><a href="model-User.html">User</a><div class="hidden" id="model:User_sub"></div></li></ul><h3><a href="global.html">Global</a></h3><ul><li><button type="button" class="toggle-subnav">  <span class="toggler">+</span></button><a>Typedef</a><div class="hidden" id="global:typedef_sub"><ul class="inner"><li><a href="global.html#Item">Item</a></li><li><a href="global.html#SimpleItem">SimpleItem</a></li><li><a href="global.html#User">User</a></li></ul></div></li></ul>
+	<div style="margin-top: 5em"></div>
+  </nav>
+
+  <div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>vue-x-docs 1.0.1</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>vue(x)docs</h1><p>A JSDoc extension for <a href="https://vuejs.org/v2/guide/">Vue</a> and <a href="https://vuex.vuejs.org/">Vuex</a> based projects. This include jsdoc template &amp; new tag definition.  </p>
+<p><a href="https://www.npmjs.com/package/vue-x-docs"><img src="https://img.shields.io/npm/v/vue-x-docs.svg" alt="NPM version"></a>
+<img src="https://img.shields.io/npm/dm/vue-x-docs.svg" alt="downloads">
+<img src="https://img.shields.io/bundlephobia/min/vue-x-docs.svg" alt="size"><br><img src="https://img.shields.io/snyk/vulnerabilities/npm/vue-x-docs.svg" alt="vulneribilites">
+<img src="https://img.shields.io/github/last-commit/Delni/vue-x-docs.svg" alt="last commit">
+<img src="https://img.shields.io/github/license/Delni/vue-x-docs.svg" alt="license"></p>
+<p>This project is not an official fork, but is widely inspired by <a href="https://github.com/nhn/tui.jsdoc-template">TUI JSDoc Template</a> for some functionnality and template customization.</p>
+<ul>
+<li><a href="#install">Install</a></li>
+<li><a href="#tags">Tags</a></li>
+<li><a href="#template">Template</a><ul>
+<li><a href="#config">Config</a></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://github.com/Delni/vue-x-docs/raw/master/demo/vue_x_docs.png" alt="vue(x)docs Preview"></p>
+<h2>Install</h2><p>Using npm :</p>
+<pre class="prettyprint source lang-bash"><code>npm install -D vue-x-docs</code></pre><p>Using yarn:</p>
+<pre class="prettyprint source lang-shell"><code>yarn add -D vue-x-docs</code></pre><h2>Tags</h2><h4>Usage</h4><p>(<a href="http://usejsdoc.org/about-configuring-jsdoc.html#incorporating-command-line-options-into-the-configuration-file"><em>jsdoc page - configuration</em></a>)</p>
+<pre class="prettyprint source lang-JSON"><code>&quot;plugins&quot;: [&quot;node_modules/vue(x)docs&quot;],</code></pre><p>If you use other plugins, put them before vue(x)docs. I would recommend <a href="https://www.npmjs.com/package/jsdoc-vue">jsdoc-vue</a> to parse <code>*.vue</code> files, and markdown plugin from jsdoc:</p>
+<pre class="prettyprint source lang-JSON"><code>&quot;plugins&quot;: [
+    &quot;plugins/markdown&quot;,
+    &quot;node_modules/jsdoc-vue&quot;,
+    &quot;node_modules/vue(x)docs&quot;
+],</code></pre><h4>Definition</h4><p>:warning: Some tags will only be available with the template, as it redefined some of JSDoc core functionnality. In those case, a <em>fallback</em> tag is defined</p>
+<hr>
+<ul>
+<li><p><code>@store</code><br>  Define a <code>vuex</code> store.<br>  Compatibility with vanilla JSDoc: fallback as <code>@module</code>.</p>
+<ul>
+<li><code>@namespaced</code> allow to precise that this vuex module is namespaced</li>
+<li><p><code>@actions</code>, <code>@mutations</code>, <code>@getters</code>, fallback as <code>@method</code>. <code>@actions</code> are automaticaly tagged as <code>async</code></p>
+<p>See <a href="https://github.com/Delni/vue-x-docs/blob/master/demo/src/warehouse-module.js">warehouse-module.js</a> for usage in context</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p><code>@component</code><br>  Define a <code>vue</code> component.<br>  Compatibility with vanilla JSDoc: fallback as <code>@module</code>.
+  data from this component should be tagged <code>@member</code></p>
+<ul>
+<li><code>@computed</code>: fallback as <code>@member</code>. Tag computed data</li>
+<li><code>@vprop</code>: fallback as <code>@member</code>. Tag props from actual data</li>
+<li><p><code>@route</code> : show the routes matched by this component. Not supported by default JSDoc template</p>
+<p>See <a href="https://github.com/Delni/vue-x-docs/blob/master/demo/src/cart.vue">cart.vue</a> for usage in context</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>@model</code>
+  Synonyme of <code>@module</code>, use to describe file that make the actual call to API, if you need.<br>  See <a href="https://github.com/Delni/vue-x-docs/blob/master/demo/src/goods.js">goods.js</a> for usage in context</li>
+</ul>
+<hr>
+<h2>Template</h2><h3>Config</h3><p>(<a href="http://usejsdoc.org/about-configuring-jsdoc.html#incorporating-command-line-options-into-the-configuration-file"><em>jsdoc page - configuration</em></a>)</p>
+<pre class="prettyprint source lang-JSON"><code>&quot;opts&quot;: {
+    &quot;template&quot;: &quot;node_modules/tui-jsdoc-template&quot;
+}</code></pre><p>You can customize some of the doc behavior</p>
+<h4>Use collapsible api list</h4><p><em>Default: <code>true</code></em></p>
+<pre class="prettyprint source lang-JSON"><code>&quot;templates&quot;: {
+    &quot;useCollapsibles&quot;: true
+}</code></pre><h4>Separates data, props and computed by a title</h4><p><em>Default: <code>true</code></em></p>
+<pre class="prettyprint source lang-JSON"><code>&quot;templates&quot;: {
+    &quot;separateMembers&quot;: true
+}</code></pre><h4>Use versioning tree output</h4><p><em>Default: <code>false</code></em>  </p>
+<pre class="prettyprint source lang-JSON"><code>&quot;templates&quot;: {
+    &quot;useVersionning&quot;: false
+}</code></pre><p>By default, output tree will be at the root of the output dir provided in conf, say <code>out</code>, you will have</p>
+<pre class="prettyprint source"><code>out/
+├─ &lt;generated documentation tree>
+└─ index.html</code></pre><p>By enabling <code>useVersionning</code>, vue(x)doc will use your package.json information to add &quot;<em>version layer</em>&quot;.
+Say your package.json looks like
+<code>{
+    &quot;name&quot;: &quot;myproject&quot;,
+    &quot;version&quot;: &quot;v1.0.0&quot;,
+    ...
+}</code>, output tree will be :</p>
+<pre class="prettyprint source"><code>out/
+└─ myproject/
+     └─ v1.0.0/
+        ├─ &lt;generated documentation tree>
+        └─ index.html</code></pre></article>
+    </section>
+
+
+
+
+
+
+    <footer>
+      Documentation generated by <a href="https://github.com/Delni/vue-x-docs">Vue(x)Docs</a>.
+    </footer>
+  </div>
+</div>
+
+
+
+<script> prettyPrint(); </script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/vuexdocs.js"></script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

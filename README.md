@@ -3,7 +3,8 @@
 A JSDoc extension for [Vue](https://vuejs.org/v2/guide/) and [Vuex](https://vuex.vuejs.org/) based projects. This include jsdoc template & new tag definition.  
 
 [![NPM version](https://img.shields.io/npm/v/vue-x-docs.svg)](https://www.npmjs.com/package/vue-x-docs)
-![size](https://img.shields.io/bundlephobia/min/vue-x-docs.svg)
+![downloads](https://img.shields.io/npm/dm/vue-x-docs.svg)
+![size](https://img.shields.io/bundlephobia/min/vue-x-docs.svg)  
 ![vulneribilites](https://img.shields.io/snyk/vulnerabilities/npm/vue-x-docs.svg)
 ![last commit](https://img.shields.io/github/last-commit/Delni/vue-x-docs.svg)
 ![license](https://img.shields.io/github/license/Delni/vue-x-docs.svg)

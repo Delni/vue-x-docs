@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
-out
+out/
+docs/
 demo/
 .editorconfig
 conf.json
