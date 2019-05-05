@@ -35,14 +35,14 @@ yarn add -D vue-x-docs
 ([*jsdoc page - configuration*](http://usejsdoc.org/about-configuring-jsdoc.html#incorporating-command-line-options-into-the-configuration-file))
 
 ```JSON
-"plugins": ["node_modules/vue(x)docs"],
+"plugins": ["node_modules/vue-x-docs"],
 ```
 If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-vue](https://www.npmjs.com/package/jsdoc-vue) to parse `*.vue` files, and markdown plugin from jsdoc:
 ```JSON
 "plugins": [
 	"plugins/markdown",
 	"node_modules/jsdoc-vue",
-	"node_modules/vue(x)docs"
+	"node_modules/vue-x-docs"
 ],
 ```
 
@@ -96,6 +96,17 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 
 You can customize some of the doc behavior
 
+### Logo
+```JSON
+"templates": {
+    "logo": {
+        "url": "https://vuejs.org/images/logo.png",
+        "width": "25px",
+        "height": "25px",
+        "link": "https://github.com/Delni/vue-x-docs"
+    }
+}
+```
 #### Use collapsible api list
 
 *Default: `true`*
