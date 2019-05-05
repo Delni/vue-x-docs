@@ -182,6 +182,17 @@
     <?js } ?>
 
     <?js
+        var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: 'watcher'});
+        if (methods && methods.length && methods.forEach) {
+    ?>
+        <h3 class="subsection-title">Watchers</h3>
+
+        <?js methods.forEach(function(m) { ?>
+            <?js= self.partial('method.tmpl', m) ?>
+        <?js }); ?>
+    <?js } ?>
+
+    <?js
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname, is: {isUndefined: true}});
         if (methods && methods.length && methods.forEach) {
     ?>

@@ -10,6 +10,8 @@
 /**
  * @component Cart
  * @desc manage all items added to your cart
+ * @lifecycle mounted set default value
+ * @lifecycle beforeDestroy properly detach stuffs
  * @route /my-cart
  * @route /my-cart/revision
  * @fires component:Cart~checkout
@@ -49,6 +51,25 @@ export default {
 		 isReadyForCheckout() {
 			 return !!items.length
 		 }
+	},
+
+	watch: {
+
+		/**
+		 * @watch items
+		 * @param {Item[]} newitems
+		 * @param {Item[]} olditems
+		 * @desc on items change, do some stuff
+		 */
+		items(newitems, olditems) {
+			// Do stuff on items update
+		}
+	},
+
+	mounted() {
+			if(this.theme !== 'light') {
+				this.default = false
+			}
 	},
 
 	methods: {

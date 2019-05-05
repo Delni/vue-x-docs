@@ -140,6 +140,18 @@ if (data.defaultvalue && (data.defaultvaluetype === 'object' || data.defaultvalu
         <?js }); ?></ul>
     </dd>
     <?js } ?>
+
+	<?js if (data.lifecycles && lifecycles.length) { ?>
+		<?js lifecycles.forEach(function(l) { ?>
+			<dt class="tag-life"><?js= l.name ?> :</dt>
+		    <dd class="tag-life">
+				<ul>
+					<li><?js= l.description ?></li>
+				</ul>
+		    </dd>
+		<?js }); ?>
+	<?js } ?>
+
     <?js if (data.namespaced) {?>
     <dt class="tag-todo">Namespaced :</dt>
     <dd class="tag-todo">

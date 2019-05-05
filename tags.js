@@ -69,29 +69,38 @@ const models = {
 }
 
 const components = {
-  component: {
-    mustHaveValue: true,
-    canHaveName: true,
-    canHaveType: false,
-    isNamespace: true,
-    onTagged(doclet, tag) {
-      doclet.name = tag.value.name
-			doclet.vuexModule = tag.value.name
-			doclet.longname = `component:${tag.value.name}`
-			doclet.scope = 'static'
-      		doclet.is = 'component'
-			doclet.kind = 'module'
-    },
-  },
-  route: {
-	  mustHaveValue: true,
-	  onTagged(doclet, tag) {
-		  if(doclet.is === 'component') {
-			  if(!doclet.routes) { doclet.routes = []}
-			  doclet.routes.push(tag.value)
-		  }
-	  }
-  },
+	component: {
+		mustHaveValue: true,
+		canHaveName: true,
+		canHaveType: false,
+		isNamespace: true,
+		onTagged(doclet, tag) {
+		  doclet.name = tag.value.name
+				doclet.vuexModule = tag.value.name
+				doclet.longname = `component:${tag.value.name}`
+				doclet.scope = 'static'
+		  		doclet.is = 'component'
+				doclet.kind = 'module'
+		},
+	},
+	lifecycle: {
+		mustHaveValue: true,
+		canHaveName: true,
+		canHaveType: false,
+		onTagged(doclet, tag) {
+			if(!Array.isArray(doclet.lifecycles)) doclet.lifecycles = []
+			doclet.lifecycles.push(tag.value)
+		}
+	},
+	route: {
+		mustHaveValue: true,
+		onTagged(doclet, tag) {
+			if(doclet.is === 'component') {
+				if(!doclet.routes) { doclet.routes = []}
+				doclet.routes.push(tag.value)
+			}
+		}
+	},
 	computed: {
 		canHaveName: true,
 		canHaveType: true,
@@ -117,6 +126,19 @@ const components = {
 				})
 			}
 			doclet.kind= 'member'
+		}
+	},
+	watch: {
+		canHaveName: true,
+		onTagged(doclet, tag) {
+	  		doclet.is = 'watcher'
+			if(tag.value) {
+				Object.keys(tag.value).forEach(key => {
+					doclet[key] = tag.value[key]
+				})
+			}
+			doclet.scope = 'static'
+			doclet.kind = 'function'
 		}
 	}
 }

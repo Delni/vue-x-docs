@@ -1,20 +1,21 @@
 # vue(x)docs
 
+**Live example**: [https://delni.github.io/vue-x-docs/](https://delni.github.io/vue-x-docs/)
+
 A JSDoc extension for [Vue](https://vuejs.org/v2/guide/) and [Vuex](https://vuex.vuejs.org/) based projects. This include jsdoc template & new tag definition.  
 
 [![NPM version](https://img.shields.io/npm/v/vue-x-docs.svg)](https://www.npmjs.com/package/vue-x-docs)
-![downloads](https://img.shields.io/npm/dm/vue-x-docs.svg)
-![size](https://img.shields.io/bundlephobia/min/vue-x-docs.svg)  
+[![downloads](https://img.shields.io/npm/dm/vue-x-docs.svg)](https://www.npmjs.com/package/vue-x-docs)
+[![size](https://img.shields.io/bundlephobia/min/vue-x-docs.svg)](https://www.npmjs.com/package/vue-x-docs)  
 ![vulneribilites](https://img.shields.io/snyk/vulnerabilities/npm/vue-x-docs.svg)
-![last commit](https://img.shields.io/github/last-commit/Delni/vue-x-docs.svg)
-![license](https://img.shields.io/github/license/Delni/vue-x-docs.svg)
-
-This project is not an official fork, but is widely inspired by [TUI JSDoc Template](https://github.com/nhn/tui.jsdoc-template) for some functionnality and template customization.
+[![last commit](https://img.shields.io/github/last-commit/Delni/vue-x-docs.svg)](https://github.com/Delni/vue-x-docs)
+[![license](https://img.shields.io/github/license/Delni/vue-x-docs.svg)](https://github.com/Delni/vue-x-docs/blob/master/LICENSE)
 
 - [Install](#install)
 - [Tags](#tags)
 - [Template](#template)
 	- [Config](#config)
+- [Special Thanks](#special-thanks)
 
 ![vue(x)docs Preview](https://github.com/Delni/vue-x-docs/raw/master/demo/vue_x_docs.png)
 
@@ -66,7 +67,15 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 
 	* `@computed`: fallback as `@member`. Tag computed data
 	* `@vprop`: fallback as `@member`. Tag props from actual data
-	* `@route` : show the routes matched by this component. Not supported by default JSDoc template
+	* `@watch`: define a special `method` for watchers.
+	* `@lifecycle`: document lifecycles hooks by providing its name. Not supported by default JSDoc template.
+		```javascript
+		/**		
+		 * @component Cart
+		 * @lifecycle mounted do some stuff
+		 */		 
+		```
+	* `@route` : show the routes matched by this component. Not supported by default JSDoc template.
 
 	See [cart.vue](https://github.com/Delni/vue-x-docs/blob/master/demo/src/cart.vue) for usage in context
 ---
@@ -81,7 +90,7 @@ If you use other plugins, put them before vue(x)docs. I would recommend [jsdoc-v
 
 ```JSON
 "opts": {
-    "template": "node_modules/tui-jsdoc-template"
+    "template": "node_modules/vue-x-docs"
 }
 ```
 
@@ -131,3 +140,7 @@ out/
 		├─ <generated documentation tree>
 		└─ index.html
 ```
+
+## Special Thanks
+
+This project is not an official fork, but is widely inspired by [TUI JSDoc Template](https://github.com/nhn/tui.jsdoc-template) for some functionnality and template customization.

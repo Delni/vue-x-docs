@@ -340,6 +340,11 @@ function buildSubNav(obj, itemsSeen) {
         memberof: longname,
 		is:{isUndefined: true}
     });
+    let watchers = find({
+        kind: 'function',
+        memberof: longname,
+		is: 'watcher'
+    });
     let actions = find({
         kind: 'function',
         memberof: longname,
@@ -368,6 +373,7 @@ function buildSubNav(obj, itemsSeen) {
     html += buildSubNavMembers(members, 'Members', itemsSeen);
     html += buildSubNavMembers(computeds, 'Computed members', itemsSeen);
 	html += buildSubNavMembers(getters, 'Getters', itemsSeen);
+	html += buildSubNavMembers(watchers, 'Watchers', itemsSeen);
 	html += buildSubNavMembers(mutations, 'Mutations', itemsSeen);
     html += buildSubNavMembers(actions, 'Actions', itemsSeen);
     html += buildSubNavMembers(methods, 'Methods', itemsSeen);
