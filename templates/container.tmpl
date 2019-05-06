@@ -147,17 +147,21 @@
         if (members && members.length && members.forEach) {
     ?>
         <h3 class="subsection-title">Members</h3>
-		<?js if(separateMembers && doc.is === 'component') { ?>
+		<?js if(separateMembers && doc.is === 'component' && members.some(m => m.isProp || m.computed)) { ?>
 
 			<?js if(members.some(m => m.isProp)) { ?>
 				<h4 class="data-title">Props</h4>
 				<?js members.filter(m => m.isProp).forEach(p => { ?>
 					<?js= self.partial('members.tmpl', p) ?>
-				<?js }) ?>
+					<?js }) ?>
+			<?js } ?>
+			<?js if(members.some(m => !m.isProp && !m.computed)) { ?>
 				<h4 class="data-title">Data</h4>
 				<?js members.filter(m => !m.isProp && !m.computed).forEach(p => { ?>
 					<?js= self.partial('members.tmpl', p) ?>
 				<?js }) ?>
+			<?js } ?>
+			<?js if(members.some(m => m.computed)) { ?>
 				<h4 class="data-title">Computed</h4>
 				<?js members.filter(m => m.computed).forEach(p => { ?>
 					<?js= self.partial('members.tmpl', p) ?>
